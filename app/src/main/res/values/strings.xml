@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Ship Engine Hours Log</string>
+    <string name="engines">Engines</string>
+    <string name="maintance_routines">Maintenance Routines</string>
+    <string name="add_hours">Add Hours</string>
+    <string name="engine_log">Engine Log</string>
+    <string name="engine_summary">Engine Summary</string>
+</resources>

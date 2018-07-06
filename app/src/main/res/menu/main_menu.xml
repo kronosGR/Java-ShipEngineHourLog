@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Help"
+        android:icon="@drawable/ic_help_outline_black_24dp"
+        app:showAsAction="always"
+        android:orderInCategory="10"
+        android:id="@+id/helpMainMenu"/>
+
+    <item android:title="KandZ"
+        android:icon="@drawable/btnkztransparent"
+        app:showAsAction="always"
+        android:orderInCategory="30"
+        android:id="@+id/kandzMainMenu"/>
+
+    <item android:title="Exit"
+        android:icon="@drawable/ic_close_black_24dp"
+        app:showAsAction="always"
+        android:orderInCategory="100"
+        android:id="@+id/exitMainMenu"/>
+</menu>

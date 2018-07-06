@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/engineSettingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_margin"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_settings_black_24dp"
+            android:onClick="engineSettingsClick"
+            android:text="Engine\nSettings" />
+
+
+        <Button
+            android:id="@+id/routinesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_margin"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_settings_black_24dp"
+            android:onClick="routinesClick"
+            android:paddingLeft="-10dp"
+            android:paddingRight="-10dp"
+            android:text="Maintenance\nRoutines\nSettings" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/hoursBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_margin"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_playlist_add_black_24dp"
+            android:onClick="hoursClick"
+            android:text="Hours" />
+
+        <Button
+            android:id="@+id/logBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_margin"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_log_black_24dp"
+            android:onClick="logClick"
+            android:text="Log" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/summaryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/button_margin"
+            android:drawableTop="@drawable/ic_sumary_black_24dp"
+            android:onClick="maintanceSummaryClick"
+            android:text="Engine Maintenance\nSummary" />
+
+    </LinearLayout>
+
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-0717744179319214/6502631736">
+    </com.google.android.gms.ads.AdView>
+
+</LinearLayout>

@@ -2,6 +2,8 @@ package kandz.me.shipenginehourslog;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,14 +19,15 @@ public class LogActivity extends AppCompatActivity {
 
     private Spinner enginesSpinner;
     private TextView logTitleTxt;
-    private ListView listViewLog;
 
     private ArrayList<EngineClass> engines;
     private ArrayList<HourClass> hours;
     private EngineClass tmpClass;
     private EngineDBhelper mDB;
 
-    private LogAdapter logAdapter;
+    private LogAdapterRecycler logAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView recyclerViewLog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class LogActivity extends AppCompatActivity {
 
         enginesSpinner = (Spinner) findViewById(R.id.engineSpinnerLog);
         logTitleTxt=(TextView)findViewById(R.id.logTitleTxt);
-        listViewLog = (ListView)findViewById(R.id.listViewLog);
+        recyclerViewLog = (RecyclerView) findViewById(R.id.recyclerViewLog);
 
         engines = mDB.getAllEngines();
         final SpinnerArrayAdapter adapter = new SpinnerArrayAdapter(this,R.layout.spinner_item_engines,engines);
@@ -58,8 +61,13 @@ public class LogActivity extends AppCompatActivity {
     }
 
     private void loadLogListView() {
+
         hours = mDB.getAllLogsForEngine(tmpClass.geteId());
-        logAdapter = new LogAdapter(this,hours);
-        listViewLog.setAdapter(logAdapter);
+        recyclerViewLog.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerViewLog.setLayoutManager(layoutManager);
+        logAdapter = new LogAdapterRecycler(hours);
+        recyclerViewLog.setAdapter(logAdapter);
+
     }
 }

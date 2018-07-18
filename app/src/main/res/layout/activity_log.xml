@@ -33,9 +33,9 @@
         android:text="Log for Engine"
         android:textSize="22sp" />
 
-    <ListView
-        android:id="@+id/listViewLog"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewLog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

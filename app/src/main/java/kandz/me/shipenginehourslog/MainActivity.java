@@ -1,6 +1,7 @@
 package kandz.me.shipenginehourslog;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import me.kandz.kz.KZActivity;
@@ -23,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private EngineDBhelper mDB;
     private AdView mAdView;
 
+
+    private InterstitialAd  insterstitialAd;
+    private ConsentSDK consentSDK;
+    private Boolean firstTime = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,17 +37,44 @@ public class MainActivity extends AppCompatActivity {
 
         // test banner ad id ca-app-pub-3940256099942544/6300978111
 
-        MobileAds.initialize(this, "ca-app-pub-0717744179319214/6502631736");
-
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
 
         mDB=new EngineDBhelper(this);
 
         //delete DB
         // mDB.deleteDB();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //------Ads Java
+
+        mAdView = findViewById(R.id.adView);
+
+        //ConsentSDK.Companion.clearConsent(this);
+        initConsentSDK(this);
+
+        if(ConsentSDK.Companion.isConsentSetup(this)){
+            Log.d("-----","YES");
+            loadBanner();
+            firstTime=false;
+        }
+        else {
+            Log.d("------","NO");
+            consentSDK.requestConsent(new ConsentSDK.ConsentStatusCallback() {
+                @Override
+                public void onResult(boolean b, int i) {
+                    if (firstTime)
+                        firstTime=false;
+                    else
+                        loadBanner();
+
+                }
+            });
+        }
+        //------end ADS
     }
 
     public void engineSettingsClick(View view) {
@@ -94,4 +128,24 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //------ADS JAVA
+    private void loadBanner(){
+        mAdView.loadAd(ConsentSDK.Companion.getAdRequest(this));
+    }
+
+    private void initConsentSDK(Context context){
+
+
+        consentSDK = new ConsentSDK.Builder(context).
+                addCustomLogTag("------")
+                .addPrivacyPolicy("http://kandz.me/privacypolicy/privacy_policy_sehl.html")
+                .addPublisherId("pub-0717744179319214")
+                .build();
+
+        ConsentSDK.Companion.setConSDK(consentSDK);
+    }
+
+
+    //-----End ADS
 }

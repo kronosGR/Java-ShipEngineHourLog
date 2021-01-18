@@ -35,18 +35,36 @@ public class Hours extends AppCompatActivity {
     EngineClass tmpClass;
     EngineDBhelper mDB;
 
+    private ConsentSDK consentSDK;
+    private Boolean firstTime=true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hours);
 
-        MobileAds.initialize(this, "ca-app-pub-0717744179319214/6502631736");
-
         mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder()
-                .build();
-        mAdView.loadAd(adRequest);
+        consentSDK = ConsentSDK.Companion.getConSDK();
+        if(ConsentSDK.Companion.isConsentSetup(this)){
+            Log.d("-----","YES");
+            mAdView.loadAd(ConsentSDK.Companion.getAdRequest(getApplicationContext()));
+            firstTime=false;
+        }
+        else {
+            Log.d("------","NO");
+            consentSDK.requestConsent(new ConsentSDK.ConsentStatusCallback() {
+                @Override
+                public void onResult(boolean b, int i) {
+                    if (firstTime)
+                        firstTime=false;
+                    else
+                        mAdView.loadAd(ConsentSDK.Companion.getAdRequest(getApplicationContext()));
+
+                }
+            });
+        }
+
 
 
         mDB=new EngineDBhelper(this);

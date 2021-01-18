@@ -1,1 +1,1 @@
-include ':app', ':kz-release'
+include ':app', ':kz-release', ':adsConsentKZ-release'
